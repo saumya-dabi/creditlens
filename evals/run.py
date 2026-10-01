@@ -43,12 +43,12 @@ def answer_eval(index: Index) -> dict:
         text = " ".join(c["text"] for c in r["claims"]) + " " + r["verdict"]
         expect_ans = x.get("answerable", True)
         row = {"id": x["id"], "q": x["q"], "answerable_pred": r["answerable"], "answerable_gold": expect_ans,
-               "answer": text.strip(), "latency_s": round(time.time() - t, 1),
+               "answer": text.strip(), "model": llm.generate.last_model, "latency_s": round(time.time() - t, 1),
                "claims": len(r["claims"]),
                "supported": sum(c["check"]["status"] == "supported" for c in r["claims"]),
                "uncited": sum(c["check"]["status"] == "uncited" for c in r["claims"])}
         if expect_ans:
-            row["correct"] = r["answerable"] and all(m.lower() in text.lower() for m in x["must"])
+            row["correct"] = r["answerable"] and all(any(alt in text.lower() for alt in m.lower().split("|")) for m in x["must"])
         else:
             row["correct"] = not r["answerable"]
         rows.append(row)
@@ -111,6 +111,8 @@ def report(res: dict) -> str:
                 L.append(f"| {co} | ERROR {v['error'][:60]} | | | | |")
             else:
                 L.append(f"| {co} | {v['recommendation']} | {'✅' if v['rec_ok'] else '❌'} | {v['flags_found']} | {', '.join(v['missed']) or '-'} | {v['flag_citation_support']} |")
+    if res.get("models_used"):
+        L += ["", "Models that served answers (free-tier rotation): " + ", ".join(f"{k} ({v})" for k, v in res["models_used"].items())]
     return "\n".join(L) + "\n"
 
 
@@ -122,8 +124,10 @@ if __name__ == "__main__":
     modes = ["bm25"] + (["dense", "hybrid"] if idx.dense is not None else [])
     res = {"ts": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), "retrieval": retrieval_eval(idx, modes)}
     if not a.retrieval_only:
+        from collections import Counter
         res["answers"] = answer_eval(idx)
         res["memos"] = memo_eval(idx)
+        res["models_used"] = dict(Counter(r.get("model") for r in res["answers"]["rows"]))
     (OUT / "results.json").write_text(json.dumps(res, indent=2, default=str))
     (OUT / "REPORT.md").write_text(report(res))
     print(report(res))

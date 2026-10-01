@@ -1,9 +1,500 @@
 {
-  "ts": "2026-10-01 10:48 UTC",
+  "ts": "2026-10-01 11:39 UTC",
   "retrieval": {
     "bm25": {
       "recall@6": 1.0,
       "all_gold_found": "22/22"
+    },
+    "dense": {
+      "recall@6": 1.0,
+      "all_gold_found": "22/22"
+    },
+    "hybrid": {
+      "recall@6": 1.0,
+      "all_gold_found": "22/22"
     }
+  },
+  "answers": {
+    "rows": [
+      {
+        "id": "sgp-1",
+        "q": "What was the DSCR in FY2024-25 and does it meet policy?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The DSCR for Shree Ganesh Polymers Pvt Ltd in FY2024-25 was 1.62x. The credit policy requires a minimum DSCR of 1.25x on the latest audited or provisional year. The company's DSCR of 1.62x passes the credit policy requirement of a minimum 1.25x. Shree Ganesh Polymers Pvt Ltd passes the DSCR policy requirement with a ratio of 1.62x against the 1.25x minimum.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.8,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-2",
+        "q": "How big is the gap between GSTR-1 and GSTR-3B turnover and how much of it is unexplained?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The gap between GSTR-1 and GSTR-3B turnover is INR 2.3 crore, which is about 4.0% of GSTR-1 turnover [S1]. Supporting credit notes for INR 1.6 crore were provided by management [S1]. INR 0.7 crore of the turnover gap remains unexplained [S1]. The GSTR-1 vs GSTR-3B turnover gap of 4.0% exceeds the policy threshold of 3%, making it a watch-list item that must be addressed in the credit memo [S1][S2]. The INR 2.3 crore GSTR-1 and GSTR-3B turnover gap (4.0%) exceeds the 3% watch-list policy threshold with INR 0.7 crore remaining unexplained.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.4,
+        "claims": 4,
+        "supported": 4,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-3",
+        "q": "Is customer concentration a concern?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The largest customer accounts for 41% of FY2024-25 revenue. The credit policy sets single-customer concentration above 40% of revenue as a watch-list trigger. Single-customer concentration is a watch-list item as it exceeds the 40% policy threshold. Customer concentration is a watch-list item that must be addressed in the credit memo because the top customer represents 41% of revenue.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.8,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-4",
+        "q": "Does the collateral cover the proposed term loan as per policy?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The proposed term loan amount is INR 4.5 crore, which is above INR 3 crore [S1][S2]. Term loans above INR 3 crore require tangible collateral cover of at least 1.25x the loan amount [S1]. The proposed security includes the hypothecation of new machinery plus an extension of the existing equitable mortgage on the Chakan factory valued at INR 11.2 crore (May 2025) [S2]. The collateral value of INR 11.2 crore divided by the loan amount of INR 4.5 crore equals 2.49x, which comfortably exceeds the 1.25x policy requirement [S1][S2]. The collateral cover is 2.49x against the required 1.25x, meaning the loan passes the collateral policy.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.4,
+        "claims": 4,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-5",
+        "q": "What was peak cash credit utilisation?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The peak cash credit utilisation for Shree Ganesh Polymers Pvt Ltd was 96% in March 2025 [S1]. Peak cash credit utilisation reached 96% in March 2025 [S1].",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.7,
+        "claims": 1,
+        "supported": 1,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-6",
+        "q": "Any outward cheque bounces?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "There are no outward cheque returns (company's own cheques that bounced) [S1]. Under the credit policy, any outward cheque return for insufficient funds in the last 6 months requires credit-committee approval [S2]. Shree Ganesh Polymers Pvt Ltd has no outward cheque bounces, satisfying the credit policy requirement.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.7,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "sgp-7",
+        "q": "How much promoter contribution is there in the project?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The promoter contribution is INR 1.2 crore [S1]. This promoter contribution constitutes 21% of the project cost of INR 5.7 crore [S1]. Promoter contribution for the project is INR 1.2 crore (21% of the total project cost).",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.8,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-1",
+        "q": "What is the DSCR and does Nimbus pass the minimum DSCR rule?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The provisional DSCR for Nimbus Logistics LLP for FY2024-25 is 0.94x [S1]. The credit policy mandates a minimum DSCR of 1.25x on the latest audited or provisional year [S2]. Comparing the provisional DSCR of 0.94x [S1] against the policy minimum of 1.25x [S2], the company fails the minimum DSCR rule. Nimbus fails the minimum DSCR rule with a provisional FY2024-25 DSCR of 0.94x against the required 1.25x.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.1,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-2",
+        "q": "Were there any outward cheque returns for insufficient funds?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Yes, there were 2 instances of outward cheque returns for insufficient funds occurring in October 2024 and February 2025 [S1]. The total amount for these outward cheque returns was INR 0.14 crore [S1]. Under the credit policy, any outward cheque return for insufficient funds in the last 6 months requires credit-committee approval [S2]. Nimbus Logistics LLP recorded outward cheque returns for insufficient funds totaling INR 0.14 crore, triggering the credit-committee approval requirement per policy.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-3",
+        "q": "What is the worst DPD on any facility in the last year?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The worst DPD on any facility in the last year is 32 days on the commercial vehicle loans [S1]. The 32 days-past-due occurred in January 2025 and was regularised in February 2025 [S1]. Under the credit policy, a DPD above 30 days is a watch-list item unless regularised and explained with evidence [S2]. The worst DPD is 32 days which is a watch-list item under policy since it was regularised [S1][S2].",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-4",
+        "q": "How have debtor days moved?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Debtor days for Nimbus Logistics LLP rose from 76 days in FY2023-24 to 108 days in FY2024-25. The increase of 32 days year-on-year exceeds the policy watch-list trigger of debtor days increasing by more than 20 days year on year. The absolute figure of 108 days also exceeds the policy threshold of 90 debtor days. Debtor days increased significantly to 108 days in FY2024-25, breaching the policy watch-list threshold.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.0,
+        "claims": 3,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-5",
+        "q": "How many credit enquiries in the last 6 months?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Nimbus Logistics LLP has 6 credit enquiries in the last 6 months from different lenders [S1]. Having more than 4 credit enquiries in 6 months is a watch-list trigger that must be addressed in the credit memo according to credit policy [S3]. Nimbus Logistics LLP has 6 credit enquiries in the last 6 months, triggering the credit policy watch-list item for credit shopping.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.6,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-6",
+        "q": "What collateral is offered for the enhancement?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The proposed security for the enhancement is the personal guarantee of both partners. No additional collateral is offered for the requested enhancement. The requested enhancement is secured solely by personal guarantees from both partners with no additional collateral offered.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.6,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "nlx-7",
+        "q": "How many months was GSTR-3B filed late?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "GSTR-3B was filed late in 5 of 12 months for Nimbus Logistics LLP [S1]. The longest delay for GSTR-3B filing was 34 days in December 2024 [S1]. Nimbus Logistics LLP filed GSTR-3B late in 5 months, breaching the policy watch-list trigger of more than 3 months.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.7,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-1",
+        "q": "How large are related-party sales as a share of revenue?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Related-party sales to Aarohi Distributors were INR 9.7 crore in FY2024-25, which represents 28% of revenue. Under the credit policy, related-party sales above 20% of revenue constitute a watch-list trigger that must be addressed in the credit memo. Since related-party sales are 28% of revenue, the company exceeds the 20% threshold and is a watch-list item. Related-party sales at 28% of revenue exceed the policy threshold of 20%, qualifying as a watch-list trigger that must be addressed in the credit memo.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.1,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-2",
+        "q": "How fast did unsecured NBFC borrowing grow?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Unsecured borrowing from three NBFCs increased from INR 1.2 crore to INR 5.3 crore within FY2024-25 [S1]. Unsecured NBFC borrowing grew from INR 1.2 crore to INR 5.3 crore within FY2024-25 [S1].",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.6,
+        "claims": 1,
+        "supported": 1,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-3",
+        "q": "What is the debt to equity ratio and is it within policy?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The debt to equity ratio for Aarohi Foods Pvt Ltd is 1.75x in FY2023-24 and 2.37x in FY2024-25. The policy requires a maximum debt-to-equity of 2.0x after the proposed loan. The FY2024-25 debt to equity ratio of 2.37x fails the policy maximum threshold of 2.0x. Aarohi Foods Pvt Ltd fails the maximum debt-to-equity policy threshold of 2.0x in FY2024-25 with a ratio of 2.37x.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 2.0,
+        "claims": 3,
+        "supported": 3,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-4",
+        "q": "What was revenue growth in FY2024-25?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Revenue from operations for Aarohi Foods Pvt Ltd was 22.5 INR crore in FY2023-24 and 34.8 INR crore in FY2024-25 [S1]. Revenue grew 54.7% year on year in FY2024-25 [S1]. Revenue for Aarohi Foods Pvt Ltd grew by 54.7% year on year to reach 34.8 INR crore in FY2024-25 [S1].",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-5",
+        "q": "Does the plant valuation cover the INR 6 crore term loan at 1.25x?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Term loans above INR 3 crore require tangible collateral cover of at least 1.25x the loan amount [S1]. The proposed term loan amount is INR 6.0 crore [S2], requiring a collateral cover of INR 7.50 crore (INR 6.0 crore \u00d7 1.25) [S1][S2]. The equitable mortgage on the Indore plant has a valuation of INR 7.4 crore [S2]. Comparing the valuation of INR 7.4 crore to the required INR 7.50 crore, the plant valuation fails the 1.25x collateral cover policy for the INR 6 crore term loan [S1][S2]. The plant valuation fails the policy requirement of 1.25x collateral cover for the INR 6 crore term loan.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 4,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "afp-6",
+        "q": "Is GST filing discipline good?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "All 12 GSTR-3B returns were filed on time for Aarohi Foods Pvt Ltd in FY2024-25 [S1]. There are no demand notices for Aarohi Foods Pvt Ltd [S1]. GST filing discipline is good as all 12 GSTR-3B returns were filed on time with no demand notices.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.8,
+        "claims": 2,
+        "supported": 2,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "pol-1",
+        "q": "What is the minimum DSCR required by the credit policy?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "The credit policy mandates a minimum DSCR of 1.25x on the latest audited or provisional year [S1]. The minimum DSCR required by the credit policy is 1.25x [S1].",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.5,
+        "claims": 1,
+        "supported": 1,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "pol-2",
+        "q": "Which borrower has the highest bureau CMR rank (worst)?",
+        "answerable_pred": true,
+        "answerable_gold": true,
+        "answer": "Nimbus Logistics LLP has a bureau rank of CMR-7 [S1]. Aarohi Foods Pvt Ltd has a bureau rank of CMR-4 [S2]. Shree Ganesh Polymers Pvt Ltd has a bureau rank of CMR-3 [S3]. Nimbus Logistics LLP has the highest bureau CMR rank (worst) at CMR-7 on a scale where 1 is best and 10 is worst [S1]. Nimbus Logistics LLP has the highest bureau CMR rank (worst) among the borrowers at CMR-7.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 4,
+        "supported": 4,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "na-1",
+        "q": "What is the promoter's personal net worth?",
+        "answerable_pred": false,
+        "answerable_gold": false,
+        "answer": "The provided sources contain company net worth, debt, and promoter bureau details, but do not mention the promoter's personal net worth. Promoter's personal net worth is missing from the sources.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 70.8,
+        "claims": 1,
+        "supported": 1,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "na-2",
+        "q": "What interest rate is the existing overdraft priced at?",
+        "answerable_pred": false,
+        "answerable_gold": false,
+        "answer": "The provided sources do not mention the interest rate at which the existing overdraft is priced. The interest rate of the existing overdraft is missing from the sources.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.6,
+        "claims": 1,
+        "supported": 1,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "na-3",
+        "q": "What was revenue in FY2022-23?",
+        "answerable_pred": false,
+        "answerable_gold": false,
+        "answer": "The provided sources do not contain revenue data for FY2022-23; financials are only provided for FY2023-24 and FY2024-25.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.9,
+        "claims": 0,
+        "supported": 0,
+        "uncited": 0,
+        "correct": true
+      },
+      {
+        "id": "na-4",
+        "q": "What is the company's external credit rating from CRISIL?",
+        "answerable_pred": false,
+        "answerable_gold": false,
+        "answer": "The provided sources do not contain information about the external credit rating from CRISIL for Shree Ganesh Polymers Pvt Ltd.",
+        "model": "gemini-3.5-flash-lite",
+        "latency_s": 1.6,
+        "claims": 0,
+        "supported": 0,
+        "uncited": 0,
+        "correct": true
+      }
+    ],
+    "summary": {
+      "n": 26,
+      "errors": 0,
+      "answer_accuracy": "22/22",
+      "abstention_accuracy": "4/4",
+      "false_abstentions": 0,
+      "citation_support_rate": 0.932,
+      "uncited_claims": 0,
+      "median_latency_s": 1.9
+    }
+  },
+  "memos": {
+    "sgp": {
+      "recommendation": "Proceed with conditions",
+      "rec_ok": true,
+      "flags_found": "2/2",
+      "missed": [],
+      "flag_citation_support": "6/6",
+      "flags": [
+        {
+          "severity": "positive",
+          "title": "Strong DSCR",
+          "evidence": "The company reported a DSCR of 1.62x for FY2024-25, which meets the credit policy requirement of a minimum DSCR of 1.25x on the latest audited year."
+        },
+        {
+          "severity": "positive",
+          "title": "Acceptable Debt-to-Equity Ratio",
+          "evidence": "The debt-to-equity ratio is 0.73x for FY2024-25, which complies with the policy maximum of 2.0x after the proposed loan."
+        },
+        {
+          "severity": "positive",
+          "title": "Clean Repayment History",
+          "evidence": "The bureau report shows no DPD above 30 days in the last 12 months on any facility, satisfying the policy rule."
+        },
+        {
+          "severity": "positive",
+          "title": "No Outward Cheque Bounces",
+          "evidence": "Bank statement analysis confirms zero outward cheque returns for insufficient funds in the last 6 months, avoiding the credit-committee approval trigger."
+        },
+        {
+          "severity": "watch",
+          "title": "GSTR-1 vs GSTR-3B Turnover Gap",
+          "evidence": "The gap between GSTR-1 (INR 57.9 crore) and GSTR-3B (INR 55.6 crore) is INR 2.3 crore, which represents about 4.0% of GSTR-1 turnover, exceeding the watch-list trigger threshold of a 3% gap."
+        },
+        {
+          "severity": "watch",
+          "title": "Single-Customer Concentration",
+          "evidence": "The largest customer accounts for 41% of FY2024-25 revenue, exceeding the watch-list trigger of single-customer concentration above 40% of revenue."
+        }
+      ]
+    },
+    "nlx": {
+      "recommendation": "Decline",
+      "rec_ok": true,
+      "flags_found": "6/7",
+      "missed": [
+        "collateral"
+      ],
+      "flag_citation_support": "7/7",
+      "flags": [
+        {
+          "severity": "hard_fail",
+          "title": "Minimum DSCR Breach",
+          "evidence": "The company recorded a DSCR of 0.94x for FY2024-25 (provisional), which breaches the policy requirement of a minimum DSCR of 1.25x on the latest audited or provisional year."
+        },
+        {
+          "severity": "hard_fail",
+          "title": "Debt-to-Equity Ratio Breach",
+          "evidence": "The debt-to-equity ratio stands at 2.53x for FY2024-25 (provisional), breaching the maximum debt-to-equity policy rule of 2.0x after the proposed loan."
+        },
+        {
+          "severity": "hard_fail",
+          "title": "Maximum DPD Above 30 Days",
+          "evidence": "The commercial vehicle loans recorded a max DPD of 32 days in January 2025, violating the policy rule of no DPD above 30 days on any facility in the last 12 months."
+        },
+        {
+          "severity": "hard_fail",
+          "title": "Outward Cheque Returns",
+          "evidence": "There were 2 instances of outward cheque returns for insufficient funds in October 2024 and February 2025, which violates the policy requiring credit-committee approval for any outward cheque return for insufficient funds in the last 6 months."
+        },
+        {
+          "severity": "watch",
+          "title": "Late GSTR-3B Filings",
+          "evidence": "GSTR-3B was filed late in 5 of 12 months, triggering the watch-list policy rule of GSTR-3B filed late in more than 3 months of the year."
+        },
+        {
+          "severity": "watch",
+          "title": "High Credit Enquiries",
+          "evidence": "The bureau report shows 6 credit enquiries in the last 6 months, triggering the watch-list policy rule of more than 4 credit enquiries in 6 months."
+        },
+        {
+          "severity": "watch",
+          "title": "Elevated Debtor Days",
+          "evidence": "Debtor days rose from 76 days in FY2023-24 to 108 days in FY2024-25, breaching the watch-list threshold of debtor days above 90."
+        }
+      ]
+    },
+    "afp": {
+      "recommendation": "Decline",
+      "rec_ok": true,
+      "flags_found": "4/5",
+      "missed": [
+        "collateral"
+      ],
+      "flag_citation_support": "6/6",
+      "flags": [
+        {
+          "severity": "hard_fail",
+          "title": "Minimum DSCR Breach",
+          "evidence": "Company DSCR for FY2024-25 is 1.18x, which breaches the policy requirement of a minimum DSCR of 1.25x."
+        },
+        {
+          "severity": "hard_fail",
+          "title": "Maximum Debt-to-Equity Breach",
+          "evidence": "Total debt to equity is 2.37x in FY2024-25, which exceeds the policy maximum of 2.0x after the proposed loan."
+        },
+        {
+          "severity": "watch",
+          "title": "Unsecured Borrowing Growth Trigger",
+          "evidence": "Unsecured borrowing from three NBFCs increased from INR 1.2 crore to INR 5.3 crore within FY2024-25, growing more than 2x in a year."
+        },
+        {
+          "severity": "watch",
+          "title": "Related-Party Sales Trigger",
+          "evidence": "Sales to Aarohi Distributors were INR 9.7 crore in FY2024-25, representing 28% of revenue, which exceeds the 20% policy threshold."
+        },
+        {
+          "severity": "positive",
+          "title": "Clean Repayment Track Record",
+          "evidence": "Max DPD over the last 12 months is 0 across all facilities, with no outward or inward cheque returns."
+        },
+        {
+          "severity": "positive",
+          "title": "Strong GST Compliance and Reconciliation",
+          "evidence": "All 12 GSTR-3B returns filed on time with no demand notices, and the GSTR-1 to GSTR-3B turnover gap is only 0.6%."
+        }
+      ]
+    }
+  },
+  "models_used": {
+    "gemini-3.5-flash-lite": 26
   }
 }

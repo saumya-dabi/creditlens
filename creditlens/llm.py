@@ -1,4 +1,7 @@
-"""Minimal Gemini REST client (free tier friendly): retries on 429/5xx, model fallback, JSON mode."""
+"""Minimal Gemini REST client for the free tier.
+Free-tier quotas are per model per day (e.g. 20 requests/day on the top Flash model), so the client rotates
+through a pool of models: a model that returns a daily-quota 429 is skipped for an hour, per-minute 429s are
+retried with the server's suggested delay, and a malformed JSON answer falls through to the next model."""
 import json
 import os
 import re
@@ -8,12 +11,20 @@ from pathlib import Path
 import requests
 
 BASE = "https://generativelanguage.googleapis.com/v1beta"
-CHAT_MODELS = [m.strip() for m in os.getenv("GEMINI_MODELS", "gemini-2.5-flash,gemini-2.5-flash-lite,gemini-2.0-flash").split(",") if m.strip()]
+CHAT_MODELS = [m.strip() for m in os.getenv(
+    "GEMINI_MODELS",
+    "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-flash-lite-latest,gemma-4-31b-it,gemini-3.8-flash,gemini-flash-latest",
+).split(",") if m.strip()]
 EMBED_MODEL = os.getenv("GEMINI_EMBED_MODEL", "gemini-embedding-001")
+_exhausted: dict[str, float] = {}
+
+
+class DailyQuota(RuntimeError):
+    pass
 
 
 def _key() -> str:
-    k = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    k = os.getenv("GEMINI_API_KEY")
     if not k:
         env = Path.home() / ".hermes" / ".env"
         if env.exists():
@@ -33,47 +44,61 @@ def available() -> bool:
         return False
 
 
-def _post(path: str, body: dict, tries: int = 6) -> dict:
-    url = f"{BASE}/{path}"
+def _post(path: str, body: dict, tries: int = 4) -> dict:
     delay = 4.0
     for attempt in range(tries):
-        r = requests.post(url, json=body, headers={"x-goog-api-key": _key()}, timeout=120)
+        r = requests.post(f"{BASE}/{path}", json=body, headers={"x-goog-api-key": _key()}, timeout=180)
         if r.status_code == 200:
             return r.json()
+        if r.status_code == 429 and "PerDay" in r.text:
+            raise DailyQuota(r.text[:200])
         if r.status_code in (429, 500, 502, 503, 504) and attempt < tries - 1:
             m = re.search(r'"retryDelay":\s*"(\d+)', r.text)
-            time.sleep(float(m.group(1)) + 1 if m else delay)
+            time.sleep(min(float(m.group(1)) + 1, 65) if m else delay)
             delay = min(delay * 2, 60)
             continue
         raise RuntimeError(f"Gemini {r.status_code}: {r.text[:300]}")
     raise RuntimeError("Gemini: retries exhausted")
 
 
+def _strip(text: str) -> str:
+    return re.sub(r"^```(json)?|```$", "", text.strip()).strip()
+
+
 def generate(prompt: str, system: str = "", json_schema: dict | None = None, temperature: float = 0.1) -> str:
-    body = {
-        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": temperature},
-    }
-    if system:
-        body["systemInstruction"] = {"parts": [{"text": system}]}
-    if json_schema:
-        body["generationConfig"]["responseMimeType"] = "application/json"
-        body["generationConfig"]["responseSchema"] = json_schema
     last = None
     for model in CHAT_MODELS:
+        if time.time() - _exhausted.get(model, 0) < 3600:
+            continue
+        gemma = model.startswith("gemma")  # Gemma on the Gemini API has no system instruction field
+        body = {"contents": [{"role": "user", "parts": [{"text": f"{system}\n\n{prompt}" if gemma and system else prompt}]}],
+                "generationConfig": {"temperature": temperature}}
+        if system and not gemma:
+            body["systemInstruction"] = {"parts": [{"text": system}]}
+        if json_schema:
+            body["generationConfig"]["responseMimeType"] = "application/json"
+            body["generationConfig"]["responseSchema"] = json_schema
         try:
-            data = _post(f"models/{model}:generateContent", body, tries=4)
+            data = _post(f"models/{model}:generateContent", body)
             parts = data["candidates"][0]["content"]["parts"]
-            return "".join(p.get("text", "") for p in parts if not p.get("thought"))
-        except (RuntimeError, KeyError, IndexError) as e:  # fall through to next model
+            text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+            if json_schema:
+                json.loads(_strip(text))
+            generate.last_model = model
+            return text
+        except DailyQuota as e:
+            _exhausted[model] = time.time()
             last = e
-    raise RuntimeError(f"all models failed: {last}")
+        except (RuntimeError, KeyError, IndexError, ValueError) as e:
+            last = e
+    raise RuntimeError(f"all models failed or out of free quota: {str(last)[:200]}")
+
+
+generate.last_model = None
 
 
 def generate_json(prompt: str, schema: dict, system: str = "") -> dict:
-    text = generate(prompt, system=system, json_schema=schema)
-    text = re.sub(r"^```(json)?|```$", "", text.strip()).strip()
-    return json.loads(text)
+    return json.loads(_strip(generate(prompt, system=system, json_schema=schema)))
 
 
 def embed(texts: list[str], task: str = "RETRIEVAL_DOCUMENT", dim: int = 768) -> list[list[float]]:

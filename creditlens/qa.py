@@ -29,9 +29,13 @@ SCHEMA = {
 NUM = re.compile(r"\d+(?:\.\d+)?")
 
 
+LABELS = re.compile(r"\[S\d+\]|\bS\d+\b|FY\s?\d{4}(?:-\d{2,4})?|\bQ[1-4]\b|CMR-\d+|GSTR-\d[A-Z]?")
+
+
 def _numbers(s: str) -> set[str]:
+    """Numeric facts in a string. Citation markers, fiscal-year labels, quarters and form names are not facts."""
     out = set()
-    for n in NUM.findall(s.replace(",", "")):
+    for n in NUM.findall(LABELS.sub(" ", s).replace(",", "")):
         out.add(n.rstrip("0").rstrip(".") if "." in n else n)
     return out
 

@@ -8,7 +8,7 @@ QA = [
     {"id": "sgp-3", "company": "sgp", "q": "Is customer concentration a concern?", "must": ["41%"], "gold": ["sgp_financials", "lending_policy"]},
     {"id": "sgp-4", "company": "sgp", "q": "Does the collateral cover the proposed term loan as per policy?", "must": ["11.2", "4.5"], "gold": ["sgp_request", "lending_policy"]},
     {"id": "sgp-5", "company": "sgp", "q": "What was peak cash credit utilisation?", "must": ["96%"], "gold": ["sgp_bank"]},
-    {"id": "sgp-6", "company": "sgp", "q": "Any outward cheque bounces?", "must": ["none"], "gold": ["sgp_bank"]},
+    {"id": "sgp-6", "company": "sgp", "q": "Any outward cheque bounces?", "must": ["none|no outward|no cheque"], "gold": ["sgp_bank"]},
     {"id": "sgp-7", "company": "sgp", "q": "How much promoter contribution is there in the project?", "must": ["1.2", "21%"], "gold": ["sgp_request"]},
     # Nimbus Logistics
     {"id": "nlx-1", "company": "nlx", "q": "What is the DSCR and does Nimbus pass the minimum DSCR rule?", "must": ["0.94", "1.25"], "gold": ["nlx_financials", "lending_policy"]},

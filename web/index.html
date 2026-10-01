@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CreditLens · cited credit copilot for SME lending</title>
+<meta name="description" content="Ask a borrower's credit file in plain English. Every claim is cited and every number is checked against its source. Built by Saumya Dabi.">
+<meta name="theme-color" content="#05070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c8ff3e'/%3E%3Ccircle cx='14' cy='14' r='6' fill='none' stroke='%230b1200' stroke-width='2.6'/%3E%3Cpath d='M19 19l5 5' stroke='%230b1200' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="/static/fonts/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/ui.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-lens" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4L12 4z"/><path d="M12 10v4.2M12 17.2v.1"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M6 18 18 6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9.5 12h5M9.5 15.5h5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.3-3.6 4-5.4 7.5-5.4s6.2 1.8 7.5 5.4"/></symbol>
+  <symbol id="i-memo" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6z"/></symbol>
+</svg>
+
+<header class="top">
+  <a class="brand" href="/" aria-label="CreditLens home"><span class="glyph"><svg class="i"><use href="#i-lens"/></svg></span><b>CreditLens</b><small>SME credit copilot</small></a>
+  <nav>
+    <span class="status" id="status"><i></i><span>connecting</span></span>
+    <a href="https://github.com/saumya-dabi/creditlens" target="_blank" rel="noopener"><svg class="i"><use href="#i-code"/></svg><span>Code</span></a>
+    <a href="https://saumya-dabi-portfolio.vercel.app" target="_blank" rel="noopener"><svg class="i"><use href="#i-user"/></svg><span>Saumya Dabi</span></a>
+  </nav>
+</header>
+
+<div class="shell">
+  <aside class="files" aria-label="Borrower files">
+    <div class="label">Borrower files</div>
+    <div id="borrowers" class="borrowers" role="radiogroup"></div>
+    <div class="manifest">
+      <div class="label">In this file</div>
+      <ul id="manifest"></ul>
+    </div>
+    <p class="note">All borrowers, people and figures are fictional, written to mirror a real Indian SME credit file.</p>
+  </aside>
+
+  <main class="work">
+    <section class="headline">
+      <h1 id="bname">Loading…</h1>
+      <p id="bmeta" class="bmeta"></p>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="ask"><svg class="i"><use href="#i-chat"/></svg>Ask the file</button>
+        <button role="tab" aria-selected="false" data-tab="memo"><svg class="i"><use href="#i-memo"/></svg>Pre-screen memo</button>
+        <button role="tab" aria-selected="false" data-tab="evals"><svg class="i"><use href="#i-chart"/></svg>How it's tested</button>
+      </div>
+    </section>
+
+    <section id="tab-ask" class="tab">
+      <form id="askf" class="ask" autocomplete="off">
+        <label class="sr" for="q">Question about this borrower</label>
+        <svg class="i lead"><use href="#i-lens"/></svg>
+        <input id="q" name="q" maxlength="400" placeholder="Ask anything in this file, e.g. does the DSCR meet policy?">
+        <button class="btn pri" id="askb" type="submit">Ask<svg class="i"><use href="#i-arrow"/></svg></button>
+      </form>
+      <div id="samples" class="samples"></div>
+
+      <div id="pipe" class="pipe" hidden>
+        <div class="stage" data-s="retrieve"><i></i><span>Retrieve</span><em class="num" data-t="retrieve"></em></div>
+        <div class="stage" data-s="answer"><i></i><span>Answer with citations</span><em class="num" data-t="answer"></em></div>
+        <div class="stage" data-s="verify"><i></i><span>Verify every number</span><em class="num" data-t="verify"></em></div>
+      </div>
+
+      <div id="answer" class="answer">
+        <div class="empty">
+          <h2>Every claim cites a source. Every number gets checked.</h2>
+          <p>Ask about ratios, GST, bank conduct, bureau or collateral. The copilot answers only from this file, cites each claim, and says <b>not in the file</b> instead of guessing. Hover a citation to see the exact figures it was checked against.</p>
+          <div class="legend">
+            <span class="badge pass"><svg class="i"><use href="#i-check"/></svg>verified</span><span>every number found in the cited source</span>
+            <span class="badge watch"><svg class="i"><use href="#i-alert"/></svg>unverified</span><span>a number the source doesn't contain</span>
+            <span class="badge fail"><svg class="i"><use href="#i-x"/></svg>uncited</span><span>claim with no source</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-memo" class="tab" hidden>
+      <div class="memo-head">
+        <p>Reads all five documents against the lender's credit policy and drafts a pre-screen memo. Each flag cites its evidence and the rule it was checked against.</p>
+        <button class="btn pri" id="memob"><svg class="i"><use href="#i-memo"/></svg>Generate memo</button>
+      </div>
+      <div id="memo"></div>
+    </section>
+
+    <section id="tab-evals" class="tab" hidden>
+      <div id="evals"></div>
+    </section>
+  </main>
+
+  <aside class="evidence" aria-label="Evidence">
+    <div class="ev-head"><div class="label">Evidence</div><span id="evcount" class="num"></span></div>
+    <div id="ev" class="ev-list"><p class="ev-empty">Retrieved passages appear here, ranked by hybrid search (BM25 + embeddings, fused with RRF), always scoped to this borrower plus the credit policy.</p></div>
+  </aside>
+</div>
+
+<footer class="foot">
+  <span>Built by <a href="https://saumya-dabi-portfolio.vercel.app" target="_blank" rel="noopener">Saumya Dabi</a> · retrieval, prompting, verifier and evals designed end to end.</span>
+  <span id="footmodel" class="mono"></span>
+</footer>
+<script src="/static/app.js" type="module"></script>
+</body>
+</html>
