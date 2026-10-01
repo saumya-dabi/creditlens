@@ -1,6 +1,6 @@
 .shell{position:relative;z-index:1;display:grid;grid-template-columns:264px minmax(0,1fr) 380px;gap:0;min-height:calc(100vh - 60px)}
 .files,.evidence{padding:22px 18px;border-right:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto}
-.evidence{border-right:0;border-left:1px solid var(--line);background:rgba(10,14,19,.55)}
+.evidence{border-right:0;border-left:1px solid var(--line);background:var(--card)}
 .work{padding:30px clamp(18px,3vw,44px) 60px;min-width:0}
 
 /* borrower list */
@@ -60,7 +60,7 @@
 .verdict .vt{font-size:17px;font-weight:500;line-height:1.45}
 .verdict .vl{margin-bottom:4px}
 .claims{list-style:none;margin-top:14px;display:grid;gap:8px}
-.claim{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(10,14,19,.6);transition:border-color .2s,background .2s}
+.claim{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);transition:border-color .2s,background .2s}
 .claim:hover,.claim.hot{border-color:var(--line-3);background:var(--ink-2)}
 .claim p{line-height:1.55}
 .claim .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
@@ -100,7 +100,7 @@
 .flags{display:grid;gap:22px;margin-top:22px}
 .flaggroup h4{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em}
 .flaggroup h4 i{width:8px;height:8px;border-radius:2px}
-.flag{padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(10,14,19,.6);display:grid;grid-template-columns:1fr auto;gap:6px 16px}
+.flag{padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;grid-template-columns:1fr auto;gap:6px 16px}
 .flag+.flag{margin-top:8px}
 .flag b{font-weight:600}
 .flag p{grid-column:1;color:var(--muted);font-size:14px}

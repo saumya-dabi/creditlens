@@ -202,7 +202,7 @@ function renderMemo(m) {
   const group = (s, title, color) => by(s).length ? `<div class="flaggroup"><h4><i style="background:${color}"></i>${title} · ${by(s).length}</h4>${by(s).map(f => `
     <div class="flag rise"><b>${esc(f.title)}</b><div class="meta">${f.sources.slice(0, 4).map(i => `<button class="cite" data-i="${i}">S${i}</button>`).join("")}${BADGE[f.check.status] || ""}</div><p>${esc(f.evidence.replace(/\s*\[S\d+\]/g, ""))}</p></div>`).join("")}</div>` : "";
   $("#memo").innerHTML = `
-    <div class="rec ${recCls} rise"><span class="label">Recommendation</span><h3>${esc(m.recommendation)}</h3>
+    <div class="rec ${recCls} rise" data-stamp="${esc({ "Decline": "Declined", "Refer to credit committee": "Referred", "Proceed with conditions": "Conditional", "Proceed": "Approved" }[m.recommendation] || "")}"><span class="label">Recommendation</span><h3>${esc(m.recommendation)}</h3>
       <div class="tally"><span class="badge fail">${by("hard_fail").length} hard fail</span><span class="badge watch">${by("watch").length} watch</span><span class="badge pass">${by("positive").length} strengths</span></div>
       <p>${esc(m.summary.replace(/\s*\[S\d+\]/g, ""))}</p></div>
     <div class="flags">${group("hard_fail", "Hard-rule breaches", "var(--fail)")}${group("watch", "Watch-list triggers", "var(--watch)")}${group("positive", "Mitigating strengths", "var(--pass)")}</div>
