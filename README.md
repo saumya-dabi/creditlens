@@ -29,6 +29,16 @@ Design choices and trade-offs:
 | Rule-based verifier, not LLM-as-judge | Cheap, deterministic, explainable to a credit head | Checks numbers, not reasoning |
 | Free-tier Gemini + model fallback | $0 to run | Rate limits under load |
 
+## Results (latest run, free-tier Gemini 3.5 Flash-Lite)
+| Metric | Result |
+|---|---|
+| Retrieval recall@6 (BM25 / dense / hybrid) | 22/22 · 22/22 · 22/22 |
+| Answer accuracy | **22/22** |
+| Abstention on unanswerable questions | **4/4**, 0 false refusals |
+| Claims whose numbers appear in the cited source | **93%**, 0 uncited claims |
+| Memo recommendation matches analyst | **3/3** |
+| Memo risk-flag recall | 12/14 (misses collateral cover on 2 files, next prompt fix) |
+
 ## Evals
 `python -m evals.run` runs 26 golden questions (22 answerable, 4 deliberately unanswerable) and 3 memo ground truths. It measures:
 retrieval recall@6 (BM25 vs dense vs hybrid), answer accuracy, abstention accuracy, citation support rate, and memo flag recall. Results are in [evals/REPORT.md](evals/REPORT.md).
@@ -45,8 +55,12 @@ There is also a credit policy extract. Regenerate them with `python data/build_c
 ```bash
 pip install -r requirements.txt
 export GEMINI_API_KEY=...   # free key from aistudio.google.com
-streamlit run app.py
+uvicorn server:app --port 8601     # custom UI at http://localhost:8601
+# streamlit run app.py             # original prototype UI, still works
 ```
+Stack: FastAPI JSON API (`server.py`) + hand-built vanilla JS/CSS front end (`web/`), no framework. Answers are cached and rate-limited per IP so the public demo stays inside the free tier. The client rotates across free Gemini models when one hits its daily quota.
+
+**Signature interaction:** hover any claim and the evidence rail dims everything except the cited passage, with the exact verified figures highlighted.
 
 ## Next, if this were a product
 PDF/bank-statement ingestion, analyst feedback loop on flags (precision by flag type), policy versioning, and an audit log per memo.
