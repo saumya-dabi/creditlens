@@ -1,0 +1,9 @@
+{
+  "ts": "2026-10-01 10:48 UTC",
+  "retrieval": {
+    "bm25": {
+      "recall@6": 1.0,
+      "all_gold_found": "22/22"
+    }
+  }
+}
