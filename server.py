@@ -1,6 +1,7 @@
 """CreditLens HTTP API + static UI.  Run: uvicorn server:app --port 8601"""
 import hashlib
 import json
+import os
 import re
 import sys
 import time
@@ -19,8 +20,19 @@ from creditlens.retrieval import COMPANIES, Index  # noqa: E402
 
 app = FastAPI(title="CreditLens", docs_url=None, redoc_url=None)
 INDEX = Index()
-CACHE = ROOT / "data" / "answer_cache.json"
-_cache: dict = json.loads(CACHE.read_text()) if CACHE.exists() else {}
+# Answer cache: data/answer_cache.json seeds it; on serverless hosts (Vercel) only /tmp is writable.
+SEED = ROOT / "data" / "answer_cache.json"
+CACHE = Path(os.getenv("ANSWER_CACHE_PATH") or ("/tmp/creditlens_answer_cache.json" if os.getenv("VERCEL") else SEED))
+
+
+def _load(p: Path) -> dict:
+    try:
+        return json.loads(p.read_text()) if p.exists() else {}
+    except (OSError, ValueError):
+        return {}
+
+
+_cache: dict = {**_load(SEED), **_load(CACHE)} if CACHE != SEED else _load(SEED)
 _hits: dict[str, deque] = defaultdict(deque)
 LIMIT_PER_HOUR = 40
 
@@ -37,7 +49,8 @@ PROFILE = {
 
 
 def _limit(req: Request):
-    ip = req.headers.get("cf-connecting-ip") or (req.client.host if req.client else "?")
+    ip = (req.headers.get("cf-connecting-ip") or req.headers.get("x-real-ip")
+          or req.headers.get("x-forwarded-for", "").split(",")[0].strip() or (req.client.host if req.client else "?"))
     q, now = _hits[ip], time.time()
     while q and now - q[0] > 3600:
         q.popleft()
@@ -47,7 +60,11 @@ def _limit(req: Request):
 
 
 def _save():
-    CACHE.write_text(json.dumps(_cache))
+    try:  # best effort: a read-only filesystem must never break an answer
+        CACHE.parent.mkdir(parents=True, exist_ok=True)
+        CACHE.write_text(json.dumps(_cache))
+    except OSError:
+        pass
 
 
 def _hit(c, score):

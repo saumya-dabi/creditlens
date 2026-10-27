@@ -1,0 +1,4 @@
+# Optional: the original Streamlit prototype UI (app.py). Not needed by server.py or the Vercel deploy.
+-r requirements.txt
+uvicorn[standard]
+streamlit>=1.40

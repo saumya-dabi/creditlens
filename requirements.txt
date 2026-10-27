@@ -1,7 +1,6 @@
 fastapi>=0.110
-uvicorn[standard]
+uvicorn
 pydantic>=2
 rank_bm25
 numpy
 requests
-streamlit>=1.40  # optional: original prototype UI

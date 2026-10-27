@@ -1,0 +1,14 @@
+.venv/
+venv/
+.git/
+__pycache__/
+*.pyc
+*.tunnel.log
+.env
+.env.*
+app.py
+requirements-prototype.txt
+DESIGN.md
+evals/run.py
+evals/golden.py
+data/build_corpus.py

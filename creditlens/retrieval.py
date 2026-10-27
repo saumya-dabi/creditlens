@@ -71,7 +71,10 @@ class Index:
             if data.get("sig") == sig:
                 return np.array(data["vecs"], dtype=np.float32)
         vecs = llm.embed([c.text for c in self.chunks])
-        CACHE.write_text(json.dumps({"sig": sig, "vecs": vecs}))
+        try:
+            CACHE.write_text(json.dumps({"sig": sig, "vecs": vecs}))
+        except OSError:  # read-only filesystem (serverless): keep vectors in memory only
+            pass
         return np.array(vecs, dtype=np.float32)
 
     def search(self, query: str, k: int = 6, company: str | None = None, mode: str = "hybrid") -> list[tuple[Chunk, float]]:

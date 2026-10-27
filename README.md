@@ -56,7 +56,7 @@ There is also a credit policy extract. Regenerate them with `python data/build_c
 pip install -r requirements.txt
 export GEMINI_API_KEY=...   # free key from aistudio.google.com
 uvicorn server:app --port 8601     # custom UI at http://localhost:8601
-# streamlit run app.py             # original prototype UI, still works
+# pip install -r requirements-prototype.txt && streamlit run app.py   # original prototype UI
 ```
 Stack: FastAPI JSON API (`server.py`) + hand-built vanilla JS/CSS front end (`web/`), no framework. Answers are cached and rate-limited per IP so the public demo stays inside the free tier. The client rotates across free Gemini models when one hits its daily quota.
 

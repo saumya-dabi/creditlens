@@ -3,3 +3,5 @@ __pycache__/
 .env
 data/answer_cache.json
 data/cache.json
+.vercel
+.env*
