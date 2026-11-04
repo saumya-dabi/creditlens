@@ -1,6 +1,6 @@
 # 🔎 CreditLens: a cited, self-checking credit copilot for SME lending
 
-**Live demo:** see the link on [saumya-dabi-portfolio.vercel.app](https://saumya-dabi-portfolio.vercel.app) · **Eval report:** [evals/REPORT.md](evals/REPORT.md)
+**Live demo:** see the link on [saumya.dabi.live](https://saumya.dabi.live) · **Eval report:** [evals/REPORT.md](evals/REPORT.md)
 
 ## The problem
 A credit analyst at an Indian SME lender reads five or more documents per borrower: audited financials, GST returns, bank-statement analysis, bureau report and the loan request. They then check every figure against the credit policy. A generic chatbot doesn't help here. One wrong DSCR or a missed cheque bounce is a bad loan. The product bar is **every claim traceable, and silence when the file is silent**.
@@ -65,4 +65,4 @@ Stack: FastAPI JSON API (`server.py`) + hand-built vanilla JS/CSS front end (`we
 ## Next, if this were a product
 PDF/bank-statement ingestion, analyst feedback loop on flags (precision by flag type), policy versioning, and an audit log per memo.
 
-Built by [Saumya Dabi](https://saumya-dabi-portfolio.vercel.app). Started from patterns in [awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) (RAG with citations, RAG failure diagnostics), rebuilt for a lending workflow I worked on at CreditQ.
+Built by [Saumya Dabi](https://saumya.dabi.live). Started from patterns in [awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) (RAG with citations, RAG failure diagnostics), rebuilt for a lending workflow I worked on at CreditQ.
